@@ -37,7 +37,6 @@ export default function RideOptions() {
   const [selected, setselected] = useState(null);
   const TravelTimeInformation = useSelector(selectTravelTimeInformation);
   const navigation = useNavigation();
-  console.log("time:", TravelTimeInformation);
 
   const SurgeChargeRate = 1.5;
   return (
@@ -48,6 +47,7 @@ export default function RideOptions() {
           onPress={() => {
             navigation.goBack();
             setselected(null);
+            set;
           }}
         >
           <Icon
@@ -57,10 +57,12 @@ export default function RideOptions() {
             type="fontawesome"
           />
         </TouchableOpacity>
-        <Text className="text-center py-5 text-xl">Select a Ride</Text>
+        <Text className="text-center py-5 text-xl">
+          Select a Ride - {TravelTimeInformation?.distance.text}
+        </Text>
       </View>
 
-      <View>
+      <View className="my-auto">
         <FlatList
           data={data}
           renderItem={({ item }) => (
@@ -105,7 +107,7 @@ export default function RideOptions() {
         />
       </View>
 
-      <View className="mt-auto border-t border-gray-300">
+      <View className="my-auto border-t border-gray-300">
         <TouchableOpacity
           disabled={selected === null}
           className={`${selected ? "bg-black" : "bg-gray-300"} py-3 m-3`}

@@ -43,7 +43,6 @@ const index = () => {
               })
             );
             // 'details' is provided when fetchDetails = true
-            console.log(data, details);
           }}
           fetchDetails={true}
           returnKeyType="search"
@@ -60,13 +59,11 @@ const index = () => {
               padding: 3,
               // paddingTop: 6,
               // shadowColor: "#000",
-
-              borderWidth: 1,
-              borderRadius: 10,
             },
             textInput: {
               fontSize: 18,
-              color: "red",
+              borderWidth: 1,
+              borderRadius: 10,
             },
           }}
           minLength={2}

@@ -2,15 +2,16 @@ import { View, Text, SafeAreaView } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import { useDispatch } from "react-redux";
-import { setDestination } from "../feature/navSlice";
-import NavFavorites from "./NavFavorites";
+import { useDispatch, useSelector } from "react-redux";
+import { selectDestination, setDestination } from "../feature/navSlice";
 import { TouchableOpacity } from "react-native";
 import { Icon } from "@rneui/themed";
+import NavFavorites from "./NavFavorites";
 
 export default function NavigateCard() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const destination = useSelector(selectDestination);
   return (
     <SafeAreaView className="bg-white flex-1">
       <Text className="text-center py-5 text-xl">Good Morning, Akbar</Text>
@@ -57,6 +58,7 @@ export default function NavigateCard() {
       </View>
       <View className="flex-row justify-evenly items-center py-2 mt-auto bg-white border-t border-gray-100">
         <TouchableOpacity
+          disabled={!destination}
           onPress={() => navigation.navigate("RideOptions")}
           className="flex-row bg-black justify-between w-24 px-4 py-3 rounded-full"
         >

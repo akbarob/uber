@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   selectDestination,
   selectOrigin,
+  setDestination,
   setTravelTimeInormation,
 } from "../../feature/navSlice";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -34,7 +35,6 @@ export default function MapScreen() {
 
   useEffect(() => {
     if (!origin || !destination) return;
-    // console.log(origin, destination, process.env.GOOGLE_MAPS_APIKEY);
     function getTravelTime() {
       fetch(
         `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origin.description}&destinations=${destination.description}&mode=driving&key=${process.env.GOOGLE_MAPS_APIKEY}`
@@ -60,9 +60,10 @@ export default function MapScreen() {
       />
       <View className="h-1/2">
         <TouchableOpacity
-          className="absolute top-5 left-5 z-50 shadow-md bg-white rounded-full"
+          className="absolute top-16 left-8 z-50 shadow-md bg-white rounded-full"
           onPress={() => {
             route.back();
+            dispatch(setDestination(null));
           }}
         >
           <Icon
@@ -85,8 +86,8 @@ export default function MapScreen() {
         >
           {origin && destination && (
             <MapViewDirections
-              origin={origin.description}
-              destination={destination.description}
+              origin={origin?.description}
+              destination={destination?.description}
               apikey={process.env.GOOGLE_MAPS_APIKEY}
               strokeColor="black"
               strokeWidth={3}
@@ -132,21 +133,6 @@ export default function MapScreen() {
             />
           </Yes.Navigator>
         </NavigationContainer>
-
-        {/* <Stack initialRouteName="home">
-          <Stack.Screen
-            name="/app/fish/index"
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="/app/fish/meat"
-            options={{
-              headerShown: false,
-            }}
-          />
-        </Stack> */}
       </View>
     </View>
   );
